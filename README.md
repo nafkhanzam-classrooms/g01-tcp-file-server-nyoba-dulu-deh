@@ -4,8 +4,8 @@
 ## Anggota Kelompok
 | Nama           | NRP        | Kelas     |
 | ---            | ---        | ----------|
-|                |            |           |
-|                |            |           |
+| Hisyam Syafa Raditya | 5025241130 | D |
+| A. Wildan Kevin Assyauqi | 5025241265 | D |
 
 ## Link Youtube (Unlisted)
 Link ditaruh di bawah ini
