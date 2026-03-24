@@ -35,19 +35,16 @@ def _recv_exact(sock, n):
 
 
 def upload_file(sock, local_path):
-    """Send a file in chunks. End is signaled by a zero-length chunk."""
     with open(local_path, 'rb') as fh:
         while True:
             chunk = fh.read(CHUNK_SIZE)
             if not chunk:
                 break
             sock.sendall(struct.pack('>I', len(chunk)) + chunk)
-    # sentinel
     sock.sendall(struct.pack('>I', 0))
 
 
 def download_file(sock, save_path):
-    """Receive a chunked file from the server."""
     os.makedirs(os.path.dirname(save_path) if os.path.dirname(save_path) else '.', exist_ok=True)
     with open(save_path, 'wb') as fh:
         while True:
