@@ -457,3 +457,21 @@ def remove_client(fd, poller, fd_map):
 **Kelebihan dibanding Select:** Tidak ada batasan hard-limit jumlah file descriptor, overhead pengiriman data ke kernel lebih kecil karena registrasi bersifat persisten, serta penanganan error lebih granular melalui flag `POLL_ERR`, `POLLHUP`, dan `POLLNVAL`.
 
 ## Screenshot Hasil
+
+### 1. Server Synchronous (`sync`)
+- Server `sync` akan memblokir (freeze) klien baru karena masih ada klien lain yang terkoneksi dan sedang ditangani. Klien baru harus menunggu hingga klien sebelumnya selesai.
+![Sync Freeze](assets/sync-freeze.png)
+- Setelah klien pertama melakukan `exit` atau terputus, klien berikutnya baru dapat masuk ke dalam server dan menjalankan _command_.
+![Sync Ext](assets/sync-ext.png)
+
+### 2. Server Poll (`poll`)
+- Berbeda dengan `sync`, server `poll` dapat menangani beberapa klien secara bersamaan (_concurrently_).
+![Poll](assets/poll.jpeg)
+
+### 3. Server Select (`select`)
+- Server `select` juga dapat menangani beberapa klien secara bersamaan dengan memantau _file descriptor_.
+![Select](assets/select.png)
+
+### 4. Server Thread (`thread`)
+- Server `thread` membuat _thread_ baru untuk setiap klien yang terhubung, sehingga dapat menangani banyak klien secara bersamaan tanpa saling memblokir.
+![Thread](assets/thread.png)
